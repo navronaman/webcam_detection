@@ -7,10 +7,11 @@ import time
 # Will send image as email in the emailing.py
 
 video = cv2.VideoCapture(0)
-time.sleep(1)
+time.sleep(2)
 
 first_frame = None
 status_list = []
+count = 0
 
 while True:
     status = 0
@@ -37,6 +38,9 @@ while True:
 
         if rectangle.any():
             status = 1
+            cv2.imwrite(f"images/image{count}.png", frame)
+            count = count + 1
+
 
     status_list.append(status)
     status_list = status_list[-2:]
