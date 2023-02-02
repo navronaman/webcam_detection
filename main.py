@@ -1,5 +1,5 @@
 from emailing import send_email
-
+import glob
 import cv2
 import time
 
@@ -40,14 +40,17 @@ while True:
             status = 1
             cv2.imwrite(f"images/image{count}.png", frame)
             count = count + 1
-
+            all_images = glob.glob("images/*.png")
+            index = int(len(all_images)/2)
+            if all_images:
+                main_image1 = all_images[index]
 
     status_list.append(status)
     status_list = status_list[-2:]
     print(status_list)
 
     if status_list[0] == 1 and status_list[1] == 0:
-        send_email()
+        send_email(main_image1)
 
     cv2.imshow("My video", frame)
 
