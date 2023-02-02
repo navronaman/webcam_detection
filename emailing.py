@@ -8,6 +8,7 @@ RECEIVER = "namanmaulikshah@gmail.com"
 
 
 def send_email(image_path, sender=SENDER, receiver=RECEIVER, password=GOOGLE_PW):
+    print("Send email function started. ")
     email_message = EmailMessage()
     email_message["Subject"] = "Object appeared in the room!"
     email_message.set_content("Hey we just saw this new object in the room!")
@@ -22,7 +23,7 @@ def send_email(image_path, sender=SENDER, receiver=RECEIVER, password=GOOGLE_PW)
     gmail.login(sender, password=password)
     gmail.sendmail(sender, receiver, email_message.as_string())
     gmail.quit()
-    print("Email was sent!")
+    print("Send email function ended")
 
 
 if __name__ == "__main__":

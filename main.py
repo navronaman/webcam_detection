@@ -1,10 +1,21 @@
+import os
 from emailing import send_email
 import glob
 import cv2
 import time
+from threading import Thread
 
 # Open webcam, detect moment, capture moment as an image
 # Will send image as email in the emailing.py
+
+
+def clean_folder():
+    print("Clean folder function started. ")
+    images = glob.glob("images/*.png")
+    for image in images:
+        os.remove(image)
+    print("Clean folder function ended. ")
+
 
 video = cv2.VideoCapture(0)
 time.sleep(2)
@@ -50,7 +61,10 @@ while True:
     print(status_list)
 
     if status_list[0] == 1 and status_list[1] == 0:
-        send_email(main_image1)
+        email_thread = Thread(target=send_email, args=(main_image1, ))
+        email_thread.daemon = True
+
+        email_thread.start()
 
     cv2.imshow("My video", frame)
 
@@ -60,3 +74,6 @@ while True:
         break
 
 video.release()
+clean_thread = Thread(target=clean_folder())
+clean_thread.daemon = True
+clean_thread.start()
