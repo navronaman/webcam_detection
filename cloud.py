@@ -6,41 +6,13 @@ from datetime import datetime
 
 today_date = datetime.now()
 
-cred = credentials.Certificate("serviceAccountKey.json")
+cred = credentials.Certificate("key/serviceAccountKey.json")
 
 firebase_admin.initialize_app(cred, {
    "databaseURL": "https://webcam-detection-default-rtdb.firebaseio.com/",
-    "storageBucket": "gs://webcam-detection.appspot.com"
+    "storageBucket": "webcam-detection.appspot.com"
 })
 
-# save data
-# ref = db.reference("messages")
-# users_ref = ref.child("users")
-"""
-users_ref.set({
-    "Naman": {
-        "dob" : "April 26, 2005",
-        "full_name": "Naman Shah"
-    },
-    "Naval": {
-        "dob" : "Feb 29, 2008",
-        "full_name": "Naval Shah",
-    }
-})
-
-
-# update
-hopper_ref = users_ref.child("naymor")
-hopper_ref.update({
-    "nickname": "Naymor"
-}
-)
-
-# read data
-handle = db.reference("messages/users/naymor")
-
-print(ref.get())
-"""
 def format_time():
     # Get the current time
     current_time = datetime.now().strftime("%I:%M:%S %p")
@@ -82,7 +54,7 @@ def inti_cloud(image_path):
 
 
 if __name__ == "__main__":
-    inti_cloud(image_path="images/image5.png")
+    inti_cloud(image_path="images/trial.png")
 
 
 

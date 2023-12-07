@@ -27,4 +27,4 @@ def send_email(image_path, sender=SENDER, receiver=RECEIVER, password=GOOGLE_PW)
 
 
 if __name__ == "__main__":
-    send_email(image_path="images/image5.png")
+    send_email(image_path="images/trial.png")
