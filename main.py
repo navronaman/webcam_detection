@@ -1,5 +1,6 @@
 import os
 from emailing import send_email
+from cloud import inti_cloud
 import glob
 import cv2
 import time
@@ -61,10 +62,15 @@ while True:
     print(status_list)
 
     if status_list[0] == 1 and status_list[1] == 0:
-        email_thread = Thread(target=send_email, args=(main_image1, ))
-        email_thread.daemon = True
+        # email_thread = Thread(target=send_email, args=(main_image1, ))
+        # email_thread.daemon = True
 
-        email_thread.start()
+        # email_thread.start()
+
+        cloud_thread = Thread(target=inti_cloud, args=(main_image1,))
+        cloud_thread.daemon = True
+
+        cloud_thread.start()
 
     cv2.imshow("My video", frame)
 

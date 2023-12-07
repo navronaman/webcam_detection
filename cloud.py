@@ -1,7 +1,89 @@
 import firebase_admin
 from firebase_admin import credentials
+from firebase_admin import db
+from firebase_admin import storage
+from datetime import datetime
 
-cred = credentials.Certificate("path/to/serviceAccountKey.json")
+today_date = datetime.now()
 
-firebase_admin.initialize_app(cred)
+cred = credentials.Certificate("serviceAccountKey.json")
+
+firebase_admin.initialize_app(cred, {
+   "databaseURL": "https://webcam-detection-default-rtdb.firebaseio.com/"
+})
+
+# save data
+# ref = db.reference("messages")
+# users_ref = ref.child("users")
+"""
+users_ref.set({
+    "Naman": {
+        "dob" : "April 26, 2005",
+        "full_name": "Naman Shah"
+    },
+    "Naval": {
+        "dob" : "Feb 29, 2008",
+        "full_name": "Naval Shah",
+    }
+})
+
+
+# update
+hopper_ref = users_ref.child("naymor")
+hopper_ref.update({
+    "nickname": "Naymor"
+}
+)
+
+# read data
+handle = db.reference("messages/users/naymor")
+
+print(ref.get())
+"""
+def format_time():
+    # Get the current time
+    current_time = datetime.now().strftime("%I:%M:%S %p")
+    return current_time
+
+
+def upload_image(image_path):
+    print("Uploading image to Firebase Storage...")
+
+    bucket = storage.bucket()
+    blob = bucket.blob(today_date.strftime("%B %d, %Y") + "/" + image_path.split("/")[-1])
+
+    # Upload the image to Firebase Storage
+    blob.upload_from_filename(image_path)
+
+    # Get the download URL of the uploaded image
+    download_url = blob.public_url
+
+    return download_url
+
+
+def inti_cloud(image_path):
+    print("Cloud integration started")
+
+    ref = db.reference("Images")
+    date_ref = ref.child(today_date.strftime("%B %d, %Y"))
+
+    download_url = upload_image(image_path)
+
+    date_ref.set({
+        "Object entered the room": {
+            "image_path": download_url,
+            "exact_time": format_time()}
+    })
+
+    handle = db.reference("Images")
+
+    print(ref.get())
+
+
+if __name__ == "__main__":
+    inti_cloud(image_path="images/image5.png")
+
+
+
+
 
