@@ -9,7 +9,8 @@ today_date = datetime.now()
 cred = credentials.Certificate("serviceAccountKey.json")
 
 firebase_admin.initialize_app(cred, {
-   "databaseURL": "https://webcam-detection-default-rtdb.firebaseio.com/"
+   "databaseURL": "https://webcam-detection-default-rtdb.firebaseio.com/",
+    "storageBucket": "gs://webcam-detection.appspot.com"
 })
 
 # save data

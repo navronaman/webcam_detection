@@ -46,7 +46,7 @@ while True:
         if cv2.contourArea(contour) < 15000:
             continue
         x, y, w, h = cv2.boundingRect(contour)
-        rectangle = cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0))
+        rectangle = cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 240, 30))
 
         if rectangle.any():
             status = 1
